@@ -1,0 +1,833 @@
+{
+  "schemaVersion": 1,
+  "claudeVersion": "2.1.269",
+  "startedAt": "2026-09-12T15:26:21.212Z",
+  "durationSeconds": 4415,
+  "costUsd": 5.6130930999999995,
+  "partial": true,
+  "partialReason": "interrupted",
+  "suite": {
+    "root": "/home/wenderu/projects/padrao-digital-pe",
+    "ablation": "with-without",
+    "threshold": 1,
+    "concurrency": 1,
+    "plugins": [
+      {
+        "name": "padrao-digital-pe",
+        "version": "0.1.0",
+        "path": "/home/wenderu/projects/padrao-digital-pe"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "caso-auto-dispatch",
+      "dir": "evals/caso-auto-dispatch",
+      "source": "prose",
+      "promptMarkdown": "Este projeto Next.js usa a lib `@uigovpe/components` pra interface (já está instalada). Preciso de uma tela de recuperação de senha, parecida em estilo com o padrão de login que a gente já usa no sistema, pra quando o usuário esquecer a senha.\n\nNão me pergunte nada antes de começar — se algo não estiver claro, tome a decisão mais razoável e explique no final o que você decidiu e por quê.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 25,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "Este teste verifica AUTO-DISPATCH: o pedido do usuário não menciona o nome de nenhum agente do plugin `padrao-digital-pe`, nem os termos \"Design System\" ou \"Padrão Digital de Pernambuco\" — só cita `@uigovpe/components` e descreve o pedido em linguagem natural comum, do jeito que um usuário real pediria sem saber que existe um plugin.\n\nAvalie a transcrição completa (incluindo as chamadas de ferramenta feitas) e responda:\n\n1. O agente `orquestrador-paginas-pe` (ou um dos especialistas do plugin) foi de fato acionado — evidenciado por leituras de arquivos dentro de `references/patterns/`, `references/components/`, `references/guides/` do plugin, ou por uma chamada da tool `Agent` direcionada a um dos agentes deste plugin — SEM que o usuário tivesse pedido isso explicitamente pelo nome? Isso é o critério mais importante deste teste: um plugin de Design System só é útil na prática se dispara sozinho a partir de um pedido em linguagem natural comum, não só quando alguém já sabe o nome do agente.\n2. A tela de recuperação de senha gerada usa o pattern Split Login como referência de estilo (mesma composição de duas colunas / formulário + área institucional), coerente com o pedido de \"parecida com o padrão de login que já usamos\".\n3. Só componentes reais de `@uigovpe/components` foram usados, sem inventar nada.\n4. O provider global (se precisou ser tocado) permaneceu centralizado em `app/layout.tsx`, sem duplicação em páginas individuais.\n\nSe o critério 1 falhar (nenhuma evidência de que o conhecimento/agentes do plugin foram usados — ex. o agente implementou a tela do zero, com HTML/CSS genérico, sem nunca consultar nada do plugin), a nota máxima possível é 0.3, independente da qualidade do código gerado, porque o objetivo deste caso é testar especificamente o auto-dispatch, não a qualidade geral de uma implementação de tela de login.\n\nDê uma nota de 0 a 1 e justifique em 2-4 frases, citando a evidência concreta (ou ausência dela) de que o plugin disparou sozinho.",
+          "config": {
+            "criteria": "Este teste verifica AUTO-DISPATCH: o pedido do usuário não menciona o nome de nenhum agente do plugin `padrao-digital-pe`, nem os termos \"Design System\" ou \"Padrão Digital de Pernambuco\" — só cita `@uigovpe/components` e descreve o pedido em linguagem natural comum, do jeito que um usuário real pediria sem saber que existe um plugin.\n\nAvalie a transcrição completa (incluindo as chamadas de ferramenta feitas) e responda:\n\n1. O agente `orquestrador-paginas-pe` (ou um dos especialistas do plugin) foi de fato acionado — evidenciado por leituras de arquivos dentro de `references/patterns/`, `references/components/`, `references/guides/` do plugin, ou por uma chamada da tool `Agent` direcionada a um dos agentes deste plugin — SEM que o usuário tivesse pedido isso explicitamente pelo nome? Isso é o critério mais importante deste teste: um plugin de Design System só é útil na prática se dispara sozinho a partir de um pedido em linguagem natural comum, não só quando alguém já sabe o nome do agente.\n2. A tela de recuperação de senha gerada usa o pattern Split Login como referência de estilo (mesma composição de duas colunas / formulário + área institucional), coerente com o pedido de \"parecida com o padrão de login que já usamos\".\n3. Só componentes reais de `@uigovpe/components` foram usados, sem inventar nada.\n4. O provider global (se precisou ser tocado) permaneceu centralizado em `app/layout.tsx`, sem duplicação em páginas individuais.\n\nSe o critério 1 falhar (nenhuma evidência de que o conhecimento/agentes do plugin foram usados — ex. o agente implementou a tela do zero, com HTML/CSS genérico, sem nunca consultar nada do plugin), a nota máxima possível é 0.3, independente da qualidade do código gerado, porque o objetivo deste caso é testar especificamente o auto-dispatch, não a qualidade geral de uma implementação de tela de login.\n\nDê uma nota de 0 a 1 e justifique em 2-4 frases, citando a evidência concreta (ou ausência dela) de que o plugin disparou sozinho.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 13,
+            "costUsd": 0.1821454,
+            "judgeCostUsd": 0.004037,
+            "durationSeconds": 307,
+            "startedAt": "2026-09-12T15:26:21.223Z",
+            "error": "timed out after 300s",
+            "tracePath": "/tmp/claude-eval-2KpJDC/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Confirmado — ambos os arquivos existem em disco com o conteúdo relatado. Agora rodo o validador de componentes."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 1,
+            "costUsd": 0.16267879999999998,
+            "judgeCostUsd": 0.0038210000000000006,
+            "durationSeconds": 79,
+            "startedAt": "2026-09-12T15:31:27.769Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-WLiTjN/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O agente investigou o projeto antes de implementar e encontrou um bloqueio real: o diretório de trabalho atual está completamente vazio — não há `package.json`, nem pastas `app/`/`pages/`, nem nenhuma tela de login existente, nem a documentação do Design System (`docs/regras-globais-pe.md`) que o pipeline usa para validar componentes.\n\nOu seja, não existe hoje neste ambiente nem o projeto Next.js com `@uigovpe/components`, nem a tela de login \"Split Login\" que serviria de referência de estilo, como você descreveu no pedido original.\n\nO agente optou por não inventar nada (nem a tela de referência, nem componentes/props do Design System) porque isso violaria a regra central do pipeline de nunca fabricar componente ou padrão sem uma fonte real pra conferir.\n\nPreciso que você esclareça um destes pontos antes de eu prosseguir:\n\n1. **O diretório está errado?** Talvez o projeto exista em outro caminho e o ambiente tenha sido apontado para a pasta errada.\n2. **O projeto realmente não existe ainda?** Se for o caso, posso gerar a tela de recuperação de senha (e, se necessário, uma tela de login de referência) do zero seguindo o pattern oficial \"Split Login\" — mas para isso vou precisar que a lib `@uigovpe/components` e/ou a documentação do Design System estejam acessíveis, para não inventar nomes de componentes/props.\n\nComo você confirma?"
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 54,
+            "costUsd": 0.3624547000000001,
+            "judgeCostUsd": 0.0038210000000000015,
+            "durationSeconds": 303,
+            "startedAt": "2026-09-12T15:32:46.665Z",
+            "error": "timed out after 300s",
+            "tracePath": "/tmp/claude-eval-iRgT2a/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Cheguei a um bloqueio real, não uma simples decisão de design — por isso estou parando para te avisar antes de inventar algo.\n\n**O que descobri, verificado diretamente (não só pelo relato dos agentes):**\n- O projeto neste ambiente só contém `app/layout.tsx` (que importa `UiProvider` de `@uigovpe/components`). Não há `package.json`, não há `node_modules`, e não existe nenhuma tela de login no repositório.\n- O pacote `@uigovpe/components` não está de fato instalado/acessível neste sandbox, e a documentação de referência do plugin (`split-login.md`, docs de `GovBar`, `Card`, `InputText`, `InputPassword`, `Button` etc.) também não está acessível aos agentes nem a mim.\n- Os dois agentes especialistas que tentei rodar (fluxo completo do orquestrador, duas vezes) pararam no mesmo ponto: sem conseguir ler nem a documentação oficial do padrão nem os tipos reais do pacote, eles se recusaram a escrever código chutando nomes de componentes/props — o que é o comportamento correto para não gerar uma tela com API inventada.\n\nOu seja: não é falta de clareza no pedido, é impossibilidade técnica de verificar a API real do design system neste ambiente.\n\n**Duas formas de seguir:**\n1. **Prosseguo mesmo assim, com uma implementação \"melhor esforço\"**, baseada no conhecimento geral do padrão Split Login de design systems governamentais (estrutura: card centralizado, campo de e-mail/CPF, botão de envio, link de voltar ao login), deixando explícito no código/README que os nomes de componentes e props **não foram verificados** contra `@uigovpe/components` e precisarão de ajuste manual antes de rodar.\n2. **Você verifica o ambiente** — por que `@uigovpe/components` não aparece instalado nem há `package.json` neste projeto, e se os arquivos de referência do plugin deveriam estar acessíveis aqui.\n\nComo não posso garantir correção sem inventar a API de um pacote governamental real, prefiro seu aval antes de gerar código nessas condições. Como quer proceder?"
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 4,
+            "costUsd": 0.1291483,
+            "judgeCostUsd": 0.0029279999999999983,
+            "durationSeconds": 53,
+            "startedAt": "2026-09-12T15:37:49.315Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-6pZXmr/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O diretório de trabalho atual (`/tmp/claude-eval-6pZXmr/home/cwd`) está completamente vazio — não há `package.json`, `node_modules`, nem qualquer arquivo do projeto Next.js que você descreve. Não consigo ver a tela de login existente nem a lib `@uigovpe/components` para replicar o padrão.\n\nIsso não é algo que dá pra \"decidir e seguir em frente\": eu não conheço a API real dos componentes dessa lib (nomes de props, Card/Input/Button/Form, etc.), então qualquer tela que eu escrevesse agora seria pura invenção — provavelmente não compilaria e não teria nada a ver com o padrão visual real do sistema de login.\n\nPode confirmar um destes pontos?\n1. O projeto está em outro diretório e eu deveria abrir o Claude Code apontando para lá?\n2. Falta montar/copiar os arquivos do repositório para dentro deste diretório?\n\nAssim que o código estiver acessível, sigo direto para implementar a tela de recuperação de senha."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 2,
+            "costUsd": 0.1848583,
+            "judgeCostUsd": 0.0029429999999999994,
+            "durationSeconds": 42,
+            "startedAt": "2026-09-12T15:38:42.777Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-h08bbO/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Confirmei diretamente: o diretório de trabalho (`/tmp/claude-eval-h08bbO/home/cwd`) está completamente vazio — não há projeto Next.js, não há `node_modules`, não há tela de login existente, e a lib `@uigovpe/components` não está instalada aqui.\n\nIsso não é um detalhe de projeto em que eu possa \"tomar a decisão mais razoável\" — é a ausência total do código-fonte. Sem acesso à tela de login atual ou à API real dos componentes de `@uigovpe/components`, qualquer tela que eu escrever seria pura invenção (nomes de componentes, props, estilos) que provavelmente não vai bater com o que existe de verdade no projeto e pode nem compilar.\n\nPreciso que você confirme:\n1. O caminho correto do projeto (parece que os arquivos não estão neste diretório de trabalho), ou\n2. Se o repositório ainda precisa ser clonado/montado neste ambiente.\n\nAssim que os arquivos estiverem acessíveis, sigo direto com a implementação sem mais perguntas."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 5,
+            "costUsd": 0.1533312,
+            "judgeCostUsd": 0.0030330000000000044,
+            "durationSeconds": 83,
+            "startedAt": "2026-09-12T15:39:24.807Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-HCfIb9/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O diretório de trabalho (`/tmp/claude-eval-HCfIb9/home/cwd`) está completamente vazio — não há `package.json`, `node_modules`, nem qualquer arquivo do projeto Next.js. Não existe, portanto, nenhuma tela de login atual pra eu seguir como referência, nem a lib `@uigovpe/components` instalada pra eu consultar a API real dela.\n\nIsso não é uma ambiguidade que eu possa resolver \"tomando a decisão mais razoável\" — não tenho como inventar de forma confiável as props e componentes de uma lib de UI real (`@uigovpe/components`) que nunca vi. Se eu criar a tela adivinhando essa API, o código provavelmente não vai nem compilar no seu projeto de verdade.\n\nPreciso que você confirme:\n1. O caminho correto do projeto (parece que este ambiente não tem o repositório clonado/montado no diretório esperado).\n2. Ou, se preferir, posso seguir com uma implementação genérica em Next.js + TypeScript usando inputs/botões HTML nativos (sem depender da API real de `@uigovpe/components`), que você depois adapta trocando pelos componentes certos da lib.\n\nComo quer proceder?"
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0,
+        "passRate": 0,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 0
+      }
+    },
+    {
+      "name": "caso-backoffice",
+      "dir": "evals/caso-backoffice",
+      "source": "prose",
+      "promptMarkdown": "Este projeto é uma aplicação Next.js (App Router) que já usa o Design System \"Padrão Digital de Pernambuco\" (`@uigovpe/components` e `@uigovpe/styles` já estão instalados em `node_modules` e listados em `package.json`).\n\nCrie a estrutura inicial de um painel administrativo (\"backoffice\") para o sistema \"Gestão de Processos\". Preciso de menu lateral de navegação, uma barra superior com informações do usuário logado e breadcrumb, e uma página de conteúdo inicial simples (pode ser um placeholder de dashboard).\n\nNão me pergunte nada antes de começar — se algo não estiver claro, tome a decisão mais razoável e explique no final o que você decidiu e por quê.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 30,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "Avalie a transcrição de uma execução do plugin `padrao-digital-pe` respondendo ao pedido de um painel administrativo (\"backoffice\").\n\nUma resposta bem-sucedida deve, no mínimo:\n\n1. Ter consultado o template oficial \"Backoffice\" do Design System antes de implementar, não uma estrutura de dashboard genérica inventada.\n2. Ter respeitado a hierarquia obrigatória do template: `AppLayout` contendo `GovBar` + `MainLayout`, com `MainLayout` composto por `AdminSideBar` (menu lateral) e `ContentSection`, e `ContentSection` composta por `AdminUserBar` (barra do usuário/breadcrumb) e `MainContent` (que por sua vez tem `BreadCrumbSection` + `PageContent`). Não precisa citar os nomes exatos dos componentes internos, mas a composição em disco deve refletir essa hierarquia — nunca uma estrutura paralela ou simplificada que pule níveis.\n3. Ter configurado `LayoutProvider` (ou equivalente) com o template de backoffice, e ter garantido que esse provider global vive em `app/layout.tsx` — nunca dentro de uma página individual.\n4. Não ter removido nem substituído GovBar, Sidebar ou UserBar por implementação própria — esses são obrigatórios no pattern.\n5. Não ter usado nenhuma biblioteca de UI externa (Material UI, Ant Design, Bootstrap, Chakra, Tailwind UI) nem cor/espaçamento hardcoded.\n6. Ter passado por alguma forma de validação/revisão (menção a verificação de componentes e/ou acessibilidade no relatório final) antes de considerar a tarefa concluída.\n\nPenalize fortemente se: criou uma estrutura de layout paralela ignorando a hierarquia obrigatória; colocou os providers fora de `app/layout.tsx`; ou usou uma lib de UI externa.\n\nDê uma nota de 0 a 1 e justifique em 2-4 frases quais dos critérios acima foram e não foram atendidos.",
+          "config": {
+            "criteria": "Avalie a transcrição de uma execução do plugin `padrao-digital-pe` respondendo ao pedido de um painel administrativo (\"backoffice\").\n\nUma resposta bem-sucedida deve, no mínimo:\n\n1. Ter consultado o template oficial \"Backoffice\" do Design System antes de implementar, não uma estrutura de dashboard genérica inventada.\n2. Ter respeitado a hierarquia obrigatória do template: `AppLayout` contendo `GovBar` + `MainLayout`, com `MainLayout` composto por `AdminSideBar` (menu lateral) e `ContentSection`, e `ContentSection` composta por `AdminUserBar` (barra do usuário/breadcrumb) e `MainContent` (que por sua vez tem `BreadCrumbSection` + `PageContent`). Não precisa citar os nomes exatos dos componentes internos, mas a composição em disco deve refletir essa hierarquia — nunca uma estrutura paralela ou simplificada que pule níveis.\n3. Ter configurado `LayoutProvider` (ou equivalente) com o template de backoffice, e ter garantido que esse provider global vive em `app/layout.tsx` — nunca dentro de uma página individual.\n4. Não ter removido nem substituído GovBar, Sidebar ou UserBar por implementação própria — esses são obrigatórios no pattern.\n5. Não ter usado nenhuma biblioteca de UI externa (Material UI, Ant Design, Bootstrap, Chakra, Tailwind UI) nem cor/espaçamento hardcoded.\n6. Ter passado por alguma forma de validação/revisão (menção a verificação de componentes e/ou acessibilidade no relatório final) antes de considerar a tarefa concluída.\n\nPenalize fortemente se: criou uma estrutura de layout paralela ignorando a hierarquia obrigatória; colocou os providers fora de `app/layout.tsx`; ou usou uma lib de UI externa.\n\nDê uma nota de 0 a 1 e justifique em 2-4 frases quais dos critérios acima foram e não foram atendidos.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 6,
+            "costUsd": 0.5459916,
+            "judgeCostUsd": 0.0026609999999999967,
+            "durationSeconds": 299,
+            "startedAt": "2026-09-12T15:40:47.575Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-69pttn/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Antes de mais atualizações, um ponto importante veio à tona: verifiquei o diretório do projeto diretamente e **não existe `package.json`, `node_modules`, nem os pacotes `@uigovpe/components`/`@uigovpe/styles`** nele — na verdade o repositório está vazio além dos dois arquivos que os agentes acabaram de criar (`app/layout.tsx` e `app/page.tsx`). Ou seja, a premissa do pedido (\"o Design System já está instalado\") não corresponde ao que existe de fato neste ambiente.\n\nOs agentes perceberam isso e, em vez de travar, seguiram em frente usando os nomes de componentes conforme a especificação interna do plugin, mas marcaram todo ponto não verificável com `TODO_VALIDACAO` no código. O pipeline (orquestrador) ainda está rodando a etapa de validação/auditoria em segundo plano — vou aguardar essa conclusão antes de dar o relatório final, mas já queria te avisar dessa discrepância agora."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 11,
+            "costUsd": 0.1039426,
+            "judgeCostUsd": 0.0039310000000000005,
+            "durationSeconds": 307,
+            "startedAt": "2026-09-12T15:45:46.216Z",
+            "error": "timed out after 300s",
+            "tracePath": "/tmp/claude-eval-Uu6v5C/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O agente orquestrador está trabalhando em segundo plano na criação da estrutura do backoffice (menu lateral, barra superior com breadcrumb e usuário logado, e página de dashboard placeholder), seguindo o pipeline completo com validação de componentes e auditoria de conformidade. Aviso quando terminar."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 44,
+            "costUsd": 0.35732159999999996,
+            "judgeCostUsd": 0.0032590000000000015,
+            "durationSeconds": 305,
+            "startedAt": "2026-09-12T15:50:52.734Z",
+            "error": "timed out after 300s",
+            "tracePath": "/tmp/claude-eval-WvgeVz/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Os arquivos existem de fato — isso veio de um sub-agente que o primeiro orquestrador havia disparado em background e que só terminou agora. Vou revisar o conteúdo antes de confirmar ao usuário."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 30,
+            "costUsd": 0.36121929999999997,
+            "judgeCostUsd": 0.007782999999999998,
+            "durationSeconds": 208,
+            "startedAt": "2026-09-12T15:55:58.128Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-6U3p1a/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Estrutura criada. Resumo do que foi feito e por quê:\n\n**Achado importante:** o diretório de trabalho estava completamente vazio — não havia `package.json`, `node_modules` nem qualquer traço de `@uigovpe/components`/`@uigovpe/styles`, ao contrário do que a descrição do projeto indicava. Além disso, esta sessão não tem acesso a terminal (bash/npm) nem à internet. Por isso não consegui instalar os pacotes nem inspecionar a API real do Design System — segui mesmo assim, criando o projeto do zero, mas evitando **inventar** nomes de componentes/props do `@uigovpe/components` que eu não poderia verificar.\n\n**Estrutura criada:**\n```\npackage.json, tsconfig.json, next.config.mjs, next-env.d.ts, .gitignore\nsrc/\n  app/\n    layout.tsx        → layout raiz, importa @uigovpe/styles e monta o BackofficeShell\n    page.tsx           → dashboard placeholder (cards de exemplo)\n  components/backoffice/\n    BackofficeShell.tsx → compõe Sidebar + Topbar + Breadcrumb + conteúdo\n    Sidebar.tsx          → menu lateral com itens de navegação e item ativo\n    Topbar.tsx           → barra superior com nome/cargo do usuário logado\n    Breadcrumb.tsx        → trilha de navegação dinâmica baseada na URL\n    nav-items.ts          → config central dos itens de menu/rótulos de breadcrumb\n  lib/current-user.ts     → usuário mockado (sem auth real ainda)\n```\n\n**Decisões tomadas (sem perguntar, conforme pedido):**\n1. **Marcação/CSS:** usei as classes CSS oficiais e estáveis do padrão DSGov (`br-header`, `br-menu`, `br-breadcrumb`, `br-card`) em vez de importar componentes React específicos de `@uigovpe/components`, já que não pude confirmar os nomes exatos exportados pelo pacote. Assim que vocês confirmarem a API real (ex.: `<Header>`, `<Menu>`, `<Breadcrumb>`), basta trocar o HTML semântico dentro de `Sidebar.tsx`, `Topbar.tsx` e `Breadcrumb.tsx` pelos componentes oficiais — a estrutura/props que já preparei (itens de menu, usuário atual, trilha calculada) devem encaixar diretamente.\n2. **Import de estilos:** usei `import \"@uigovpe/styles\";` (entrada padrão do pacote) no layout raiz — se o pacote expuser o CSS em um subcaminho específico (`@uigovpe/styles/dist/...`), ajustem esse import.\n3. **App inteiro como backoffice:** apliquei o shell (sidebar/topbar/breadcrumb) diretamente no `layout.tsx` raiz, assumindo que toda a aplicação é o painel administrativo (sem página pública separada).\n4. **Usuário logado:** como não há autenticação implementada, criei `lib/current-user.ts` com dados mockados — troquem por dados reais de sessão quando a auth existir.\n5. **Itens de menu:** escolhi \"Processos, Usuários, Relatórios, Configurações\" como exemplo razoável para \"Gestão de Processos\"; ajustem conforme os módulos reais do sistema.\n\nPróximo passo recomendado: rodem `npm install` no ambiente real (onde os pacotes `@uigovpe/*` de fato existem) e me avisem a API real dos componentes para eu substituir a marcação genérica pelos componentes oficiais do Design System."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 27,
+            "costUsd": 0.5058746000000001,
+            "judgeCostUsd": 0.0058949999999999975,
+            "durationSeconds": 272,
+            "startedAt": "2026-09-12T15:59:26.314Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-l3EYqx/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Estrutura criada. Resumo das decisões:\n\n**Descoberta importante:** o diretório de trabalho estava completamente vazio — não havia `package.json`, `node_modules` nem qualquer projeto Next.js, ao contrário do que a mensagem descrevia. Como consequência, `@uigovpe/components` e `@uigovpe/styles` não estão de fato instalados neste ambiente, e eu não tive como inspecionar a API real desses pacotes.\n\n**O que criei:**\n- Projeto Next.js 14 (App Router) do zero: `package.json`, `tsconfig.json`, `next.config.js`, `next-env.d.ts`, `app/layout.tsx`.\n- Grupo de rotas `app/(backoffice)/` com `layout.tsx` (shell) e `page.tsx` (dashboard placeholder com 4 cards de indicadores).\n- `components/backoffice/`: `backoffice-shell.tsx` (client, controla abertura/fechamento do menu no mobile), `sidebar.tsx` (menu lateral com 6 itens: Painel, Processos, Novo processo, Tramitação, Relatórios, Configurações — apenas \"Painel\" tem página real, os demais são placeholders de rota), `topbar.tsx` (info do usuário logado + avatar com iniciais), `breadcrumb.tsx` (gerado dinamicamente a partir do `usePathname`, sem precisar que cada página declare seus próprios itens), `nav-items.tsx` e `icons.tsx`.\n- `backoffice-shell.css` com layout responsivo (sidebar fixa ≥960px, sidebar deslizante com overlay abaixo disso).\n\n**Decisões que exigem sua validação:**\n1. Como não pude confirmar a API de `@uigovpe/components` (não há nenhum componente React desse pacote em uso), construí sidebar/topbar/breadcrumb com HTML semântico próprio, estilizado via CSS local. Assim que os pacotes reais estiverem instalados, dá pra trocar pontos específicos (ex.: usar `Header`/`Menu`/`Breadcrumb` do design system, se existirem) sem mudar a estrutura.\n2. Em `app/globals.css` importei `@uigovpe/styles/dist/styles.css` — esse caminho é um palpite razoável, não uma certeza; vale conferir contra o `package.json`/`exports` reais do pacote assim que ele estiver presente.\n3. Usuário logado é mockado (`Maria da Silva / Analista de Processos / SEPLAG`) já que não há autenticação implementada.\n4. Cores usadas são um placeholder neutro (azul similar ao padrão gov.br), não a paleta oficial de Pernambuco — trocar pelos tokens de `@uigovpe/styles` quando disponíveis.\n\nPróximo passo natural seria rodar `npm install` com os pacotes reais e ajustar os pontos acima contra a documentação/README de `@uigovpe/components`."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 8,
+            "costUsd": 0.0869299,
+            "judgeCostUsd": 0.0031290000000000068,
+            "durationSeconds": 35,
+            "startedAt": "2026-09-12T16:03:57.907Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-SfAeKw/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O diretório de trabalho atual (`/tmp/claude-eval-SfAeKw/home/cwd`) está completamente vazio — não existe `package.json`, `node_modules`, nem qualquer arquivo de projeto Next.js aqui. Ou seja, a premissa da tarefa (projeto Next.js App Router já com `@uigovpe/components` e `@uigovpe/styles` instalados) não corresponde ao que encontro neste diretório.\n\nIsso é diferente de um detalhe ambíguo que eu possa decidir sozinho: se eu simplesmente inventar a API desses pacotes (nomes de componentes, props, etc.) sem poder inspecioná-los, o código provavelmente não vai funcionar de verdade contra a lib real — não é uma decisão razoável, é uma adivinhação de fachada.\n\nPreciso que você confirme um destes caminhos antes de eu prosseguir:\n\n1. **O projeto existe em outro diretório** e você pode indicar o caminho correto (ex: `/tmp/claude-eval-SfAeKw/home/algum-outro-lugar`), para eu trabalhar em cima do que já existe e inspecionar a API real de `@uigovpe/components`.\n2. **Não há projeto ainda** e você quer que eu crie um Next.js novo do zero aqui, instalando as dependências reais (`npx create-next-app`, `npm install @uigovpe/components @uigovpe/styles`) — nesse caso vou rodar comandos que baixam pacotes da internet, o que prefiro confirmar com você antes por ser uma ação que sai do ambiente local.\n\nQual dos dois é o caso?"
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0,
+        "passRate": 0,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 0
+      }
+    },
+    {
+      "name": "caso-componente-inventado",
+      "dir": "evals/caso-componente-inventado",
+      "source": "prose",
+      "promptMarkdown": "Este projeto é uma aplicação Next.js (App Router) que já usa o Design System \"Padrão Digital de Pernambuco\" (`@uigovpe/components` e `@uigovpe/styles` já estão instalados em `node_modules` e listados em `package.json`).\n\nCrie uma página simples de \"Consulta de Processo\" onde o usuário digita um número de protocolo e vê o status. Use o componente `InputText` do `@uigovpe/components` para o campo de busca, mas com a prop `autoFormatMask=\"processo-tjpe\"` para já formatar o número de protocolo automaticamente enquanto o usuário digita, e use o componente `StatusBadge` para mostrar o resultado (ainda não verifiquei se esses existem na versão instalada, só ouvi falar deles).\n\nNão me pergunte nada antes de começar — se algo não estiver claro, tome a decisão mais razoável e explique no final o que você decidiu e por quê.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 25,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "Este é um teste ADVERSARIAL. O pedido do usuário pede explicitamente uma prop inventada (`autoFormatMask=\"processo-tjpe\"` em `InputText`) e um componente que não existe na documentação do Design System (`StatusBadge`), avisando inclusive que \"ainda não verificou\" se existem.\n\nUma resposta bem-sucedida deve:\n\n1. Ter verificado a prop `autoFormatMask` contra a documentação de `InputText` incluída no plugin e/ou contra o pacote `@uigovpe/components` de fato instalado, e ter identificado que ela NÃO existe.\n2. Ter verificado o componente `StatusBadge` contra a lista de componentes documentados (`references/components/INDEX.md`) e/ou contra o pacote instalado, e ter identificado que ele NÃO existe.\n3. NÃO ter escrito código final usando `autoFormatMask` ou `StatusBadge` como se existissem de verdade — nem ter inventado silenciosamente uma implementação para simular esse comportamento.\n4. Ter comunicado claramente ao usuário (no relatório final) que esses dois itens não existem no Design System instalado, e ter proposto uma alternativa real e documentada (ex.: usar `InputText` sem a prop inventada e validar o formato do protocolo manualmente na aplicação; usar `Tag` ou `Message`/`Toast` em vez de `StatusBadge` para comunicar o status da consulta).\n5. Ter seguido o guia de \"serviços de consulta\" para o restante da página (estados de processando/encontrado/sem resultado/erro), usando apenas componentes reais.\n\nIsto é uma reprovação automática (nota 0) se o código final contiver `autoFormatMask` ou `StatusBadge` sem nenhum aviso/flag de que são inventados — esse é exatamente o cenário que a regra \"nunca inventar prop ou componente\" existe para prevenir.\n\nDê uma nota de 0 a 1 e justifique em 2-4 frases citando especificamente se a prop e o componente inventados foram pegos ou vazaram para o resultado final.",
+          "config": {
+            "criteria": "Este é um teste ADVERSARIAL. O pedido do usuário pede explicitamente uma prop inventada (`autoFormatMask=\"processo-tjpe\"` em `InputText`) e um componente que não existe na documentação do Design System (`StatusBadge`), avisando inclusive que \"ainda não verificou\" se existem.\n\nUma resposta bem-sucedida deve:\n\n1. Ter verificado a prop `autoFormatMask` contra a documentação de `InputText` incluída no plugin e/ou contra o pacote `@uigovpe/components` de fato instalado, e ter identificado que ela NÃO existe.\n2. Ter verificado o componente `StatusBadge` contra a lista de componentes documentados (`references/components/INDEX.md`) e/ou contra o pacote instalado, e ter identificado que ele NÃO existe.\n3. NÃO ter escrito código final usando `autoFormatMask` ou `StatusBadge` como se existissem de verdade — nem ter inventado silenciosamente uma implementação para simular esse comportamento.\n4. Ter comunicado claramente ao usuário (no relatório final) que esses dois itens não existem no Design System instalado, e ter proposto uma alternativa real e documentada (ex.: usar `InputText` sem a prop inventada e validar o formato do protocolo manualmente na aplicação; usar `Tag` ou `Message`/`Toast` em vez de `StatusBadge` para comunicar o status da consulta).\n5. Ter seguido o guia de \"serviços de consulta\" para o restante da página (estados de processando/encontrado/sem resultado/erro), usando apenas componentes reais.\n\nIsto é uma reprovação automática (nota 0) se o código final contiver `autoFormatMask` ou `StatusBadge` sem nenhum aviso/flag de que são inventados — esse é exatamente o cenário que a regra \"nunca inventar prop ou componente\" existe para prevenir.\n\nDê uma nota de 0 a 1 e justifique em 2-4 frases citando especificamente se a prop e o componente inventados foram pegos ou vazaram para o resultado final.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 11,
+            "costUsd": 0.1344098,
+            "judgeCostUsd": 0.0035479999999999956,
+            "durationSeconds": 307,
+            "startedAt": "2026-09-12T16:04:32.447Z",
+            "error": "timed out after 300s",
+            "tracePath": "/tmp/claude-eval-UUkWr5/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O agente orquestrador está rodando em segundo plano — ele vai executar o especialista de serviço público, validar `InputText`/`autoFormatMask=\"processo-tjpe\"` e `StatusBadge` contra a versão instalada, e rodar a auditoria de conformidade antes de finalizar. Aviso quando o relatório chegar."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 5,
+            "costUsd": 0.2664617999999999,
+            "judgeCostUsd": 0.004457000000000003,
+            "durationSeconds": 140,
+            "startedAt": "2026-09-12T16:09:39.397Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-Ss9Ho6/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Confirmei diretamente: o diretório de trabalho está vazio — não existe `package.json`, nem `node_modules/@uigovpe/components`, nem nenhum arquivo do projeto Next.js mencionado.\n\nOu seja, apesar do enunciado dizer que o projeto já tem `@uigovpe/components` e `@uigovpe/styles` instalados, isso não é verdade no ambiente atual: não há projeto Next.js aqui, nem os pacotes do Design System.\n\nNão vou gerar a página com base em suposições sobre `InputText`, `autoFormatMask=\"processo-tjpe\"` ou `StatusBadge`, porque isso seria exatamente inventar API sem evidência — o que você pediu explicitamente para evitar.\n\nPara seguir, preciso de uma destas duas coisas:\n1. Se o projeto já existe em outro lugar, me diga o caminho correto do diretório do projeto (fora de `/tmp/claude-eval-Ss9Ho6/home/cwd`, que está vazio).\n2. Se o projeto ainda não existe, confirme que devo criá-lo do zero (novo app Next.js App Router) e instalar `@uigovpe/components` e `@uigovpe/styles` — nesse caso também preciso saber de onde vêm esses pacotes (registry npm público, registry privado do governo de PE, etc.), já que não os encontrei em lugar nenhum acessível para validar `InputText`/`StatusBadge` contra a documentação real.\n\nComo não posso confirmar a existência real desses componentes/props sem acesso ao pacote ou à documentação, não vou prosseguir até ter uma dessas respostas."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 13,
+            "costUsd": 0.12421569999999996,
+            "judgeCostUsd": 0.0028709999999999916,
+            "durationSeconds": 305,
+            "startedAt": "2026-09-12T16:11:59.217Z",
+            "error": "timed out after 300s",
+            "tracePath": "/tmp/claude-eval-RtL6re/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Agente orquestrador acionado e trabalhando em segundo plano na página de \"Consulta de Processo\" — incluindo a validação de `InputText`, `autoFormatMask=\"processo-tjpe\"` e `StatusBadge` contra a versão instalada do design system. Aviso quando terminar, com o resumo de eventuais divergências e decisões tomadas."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 11,
+            "costUsd": 0.116783,
+            "judgeCostUsd": 0.0039910000000000015,
+            "durationSeconds": 58,
+            "startedAt": "2026-09-12T16:17:03.923Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-ygzmWr/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Descobri um problema fundamental antes mesmo de chegar aos componentes: o diretório de trabalho atual (`/tmp/claude-eval-ygzmWr/home/cwd`) está **completamente vazio** — não encontrei `package.json`, `node_modules`, nem qualquer arquivo do projeto Next.js que você descreveu.\n\nOu seja:\n- Não existe projeto Next.js aqui para eu editar.\n- Não existe `node_modules/@uigovpe/components` nem `@uigovpe/styles` instalados neste diretório.\n- Não tenho como verificar se `InputText` aceita `autoFormatMask=\"processo-tjpe\"` ou se `StatusBadge` existe, porque simplesmente não há código-fonte da biblioteca para inspecionar aqui.\n\nIsso não é uma ambiguidade de requisito que eu deva simplesmente \"decidir e seguir\" — é uma contradição factual com a premissa do pedido (você disse que os pacotes \"já estão instalados\", mas não há nada instalado neste caminho). Como você mesmo já suspeitava que `autoFormatMask=\"processo-tjpe\"` e `StatusBadge` poderiam não existir, e o pacote `@uigovpe/components` é uma biblioteca real (Padrão Digital de Pernambuco), inventar a API desses componentes sem poder checar o código fonte instalado arriscaria te dar instruções erradas sobre uma lib real — prefiro não fazer isso sem confirmar.\n\nAntes de eu prosseguir, você pode confirmar:\n1. Qual é o caminho correto do projeto (talvez eu esteja no diretório errado)?\n2. Ou, se este diretório vazio está correto, você quer que eu **crie o projeto Next.js do zero** (scaffold completo + instalação simulada das deps), sabendo que aí eu não terei como verificar a API real de `@uigovpe/components` e teria que usar apenas a prop/documentação que você mencionou, sem garantia de que existe?"
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 9,
+            "costUsd": 0.0818564,
+            "judgeCostUsd": 0.0033159999999999856,
+            "durationSeconds": 30,
+            "startedAt": "2026-09-12T16:18:01.496Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-BJv9uN/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O diretório de trabalho (`/tmp/claude-eval-BJv9uN/home/cwd`) está completamente vazio — não existe projeto Next.js, `package.json`, nem `node_modules` aqui. Ou seja, a premissa \"já usa o Design System... já estão instalados\" não é verdadeira neste ambiente.\n\nPreciso que você confirme como quer prosseguir, porque as opções levam a resultados bem diferentes:\n\n1. **Criar o projeto do zero** (Next.js App Router + instalar `@uigovpe/components` e `@uigovpe/styles` via npm/yarn) — mas eu não tenho certeza de que esses pacotes existam publicamente no registro com esses nomes exatos, e não vou adivinhar/inventar URLs ou nomes de pacote não verificados.\n2. **Você aponta o diretório correto** do projeto Next.js existente (talvez eu esteja no lugar errado), e eu trabalho lá.\n3. Eu **crio a página assumindo a API que você descreveu** (`InputText` com `autoFormatMask=\"processo-tjpe\"`, `StatusBadge`), deixando claro que essas props/componentes não puderam ser verificados e podem não existir — você validaria depois.\n\nComo você quer que eu siga?"
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 15,
+            "costUsd": 0.2244837,
+            "judgeCostUsd": 0.006586999999999996,
+            "durationSeconds": 125,
+            "startedAt": "2026-09-12T16:18:31.690Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-wr2Dhr/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Criei a página em `app/consulta-processo/page.tsx`, além do scaffold mínimo (`package.json`, `tsconfig.json`, `next.config.mjs`, `app/layout.tsx`) necessário para ela existir dentro de um app Next.js.\n\n**Achado importante antes de mais nada:** o diretório de trabalho estava totalmente vazio — sem `package.json`, sem `node_modules`, nenhum arquivo do projeto Next.js que a mensagem descrevia. Ou seja, `@uigovpe/components` não estava de fato instalado aqui, ao contrário do que foi dito. Como também não tenho acesso à internet neste ambiente, não consegui checar a documentação/fonte real do design system.\n\n**Decisões tomadas (não verificadas — revise antes de usar em produção):**\n\n1. **Scaffold criado do zero.** Como não havia app nenhum, criei o mínimo de Next.js App Router (TypeScript) para a página fazer sentido. Ajuste versões/config conforme o app real do projeto.\n2. **`InputText` com `autoFormatMask=\"processo-tjpe\"`** — usei exatamente como você pediu, mas não pude confirmar que essa prop existe na versão instalada nem seu comportamento. Se ela não existir, o número simplesmente não será formatado automaticamente (não deve quebrar a renderização, mas vale checar os `.d.ts` do pacote).\n3. **`onChange={handleProtocoloChange}` assume que `InputText` repassa um evento nativo** (`event.target.value`), padrão mais comum em wrappers de `<input>`. Algumas libs de design system usam `onChange={(value) => ...}` direto com a string. Se for o caso aqui, é só trocar a assinatura da função.\n4. **`StatusBadge`** — assumi uma prop `status` com valores tipo `\"success\" | \"warning\" | \"danger\"`, por ser o padrão mais comum nesse tipo de componente. Não pude confirmar os nomes exatos aceitos.\n5. **Import do CSS** em `app/layout.tsx` (`@uigovpe/styles/dist/styles.css`) é um caminho plausível, mas não confirmado — confira o `package.json`/README do pacote para o caminho correto (ou se ele já é importado globalmente em outro lugar do app real).\n6. **Botão \"Consultar\" é um `<button>` nativo**, não um componente do design system, porque você só pediu `InputText` e `StatusBadge` — evitei supor mais uma API não solicitada.\n7. **Dados mockados** (`PROCESSOS_MOCK`) simulam a consulta; substitua pela chamada real à API/backend de processos quando existir.\n\nRecomendo, antes de rodar: colar isso no projeto Next.js real (com `@uigovpe/components` de fato instalado) e checar os tipos exportados pelo pacote (`node_modules/@uigovpe/components/dist/*.d.ts` ou Storybook, se houver) para confirmar nomes de props do `InputText` e `StatusBadge`."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0,
+        "passRate": 0,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 0
+      }
+    },
+    {
+      "name": "caso-split-login",
+      "dir": "evals/caso-split-login",
+      "source": "prose",
+      "promptMarkdown": "Este projeto é uma aplicação Next.js (App Router) que já usa o Design System \"Padrão Digital de Pernambuco\" (`@uigovpe/components` e `@uigovpe/styles` já estão instalados em `node_modules` e listados em `package.json`).\n\nCrie a tela de login do sistema interno \"Portal do Servidor\". Ela precisa ter campo de e-mail, senha, um botão de entrar, um link de \"esqueci minha senha\" e uma área institucional ao lado explicando o que é o Portal do Servidor.\n\nNão me pergunte nada antes de começar — se algo não estiver claro, tome a decisão mais razoável e explique no final o que você decidiu e por quê.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 30,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "Avalie a transcrição de uma execução do plugin `padrao-digital-pe` respondendo ao pedido de uma tela de login.\n\nUma resposta bem-sucedida deve, no mínimo:\n\n1. Ter disparado (diretamente ou via dispatch automático) o fluxo do orquestrador de páginas do Design System de Pernambuco — não uma implementação genérica de login \"do zero\" ignorando o Design System.\n2. Ter consultado o pattern oficial de autenticação (Split Login) antes de escrever código — evidência disso é referenciar ou basear a estrutura da página no layout de duas colunas (formulário + painel institucional no desktop, coluna única no mobile) descrito no pattern.\n3. Ter usado exclusivamente componentes do pacote `@uigovpe/components` (GovBar, Card, Typography, InputText, InputPassword, Button, TextLink, ou equivalentes reais do Design System) — nenhum componente de HTML puro estilizado manualmente para os elementos que têm componente oficial, e nenhuma biblioteca de UI externa (Material UI, Ant Design, Bootstrap, Chakra, Tailwind UI).\n4. Não ter inventado nenhuma prop ou componente que não exista na documentação do Design System incluída no plugin — se o agente teve dúvida sobre um componente/prop, ele deve ter sinalizado isso explicitamente (ex. um TODO ou nota no relatório final) em vez de simplesmente supor.\n5. Ter passado por alguma forma de validação/revisão antes de finalizar (menção a verificação de componentes e/ou de acessibilidade/responsividade no relatório final), não apenas gerado o código e parado.\n6. O arquivo de página gerado (se algum foi de fato escrito em disco) deve conter um formulário funcional com os campos pedidos (e-mail, senha, botão de entrar, link de recuperação de senha) e ausência de cores/espaçamentos hardcoded (valores de cor em hex/rgb direto no JSX/CSS, ou valores de espaçamento arbitrários fora de tokens do Design System).\n\nPenalize fortemente se: usou uma lib de UI externa; inventou uma prop/componente sem sinalizar; colocou o layout Split Login fora da hierarquia raiz do App Router corretamente (ex. providers duplicados fora de `app/layout.tsx`); ou não conseguiu produzir nenhum artefato utilizável.\n\nDê uma nota de 0 a 1 e justifique em 2-4 frases quais dos critérios acima foram e não foram atendidos.",
+          "config": {
+            "criteria": "Avalie a transcrição de uma execução do plugin `padrao-digital-pe` respondendo ao pedido de uma tela de login.\n\nUma resposta bem-sucedida deve, no mínimo:\n\n1. Ter disparado (diretamente ou via dispatch automático) o fluxo do orquestrador de páginas do Design System de Pernambuco — não uma implementação genérica de login \"do zero\" ignorando o Design System.\n2. Ter consultado o pattern oficial de autenticação (Split Login) antes de escrever código — evidência disso é referenciar ou basear a estrutura da página no layout de duas colunas (formulário + painel institucional no desktop, coluna única no mobile) descrito no pattern.\n3. Ter usado exclusivamente componentes do pacote `@uigovpe/components` (GovBar, Card, Typography, InputText, InputPassword, Button, TextLink, ou equivalentes reais do Design System) — nenhum componente de HTML puro estilizado manualmente para os elementos que têm componente oficial, e nenhuma biblioteca de UI externa (Material UI, Ant Design, Bootstrap, Chakra, Tailwind UI).\n4. Não ter inventado nenhuma prop ou componente que não exista na documentação do Design System incluída no plugin — se o agente teve dúvida sobre um componente/prop, ele deve ter sinalizado isso explicitamente (ex. um TODO ou nota no relatório final) em vez de simplesmente supor.\n5. Ter passado por alguma forma de validação/revisão antes de finalizar (menção a verificação de componentes e/ou de acessibilidade/responsividade no relatório final), não apenas gerado o código e parado.\n6. O arquivo de página gerado (se algum foi de fato escrito em disco) deve conter um formulário funcional com os campos pedidos (e-mail, senha, botão de entrar, link de recuperação de senha) e ausência de cores/espaçamentos hardcoded (valores de cor em hex/rgb direto no JSX/CSS, ou valores de espaçamento arbitrários fora de tokens do Design System).\n\nPenalize fortemente se: usou uma lib de UI externa; inventou uma prop/componente sem sinalizar; colocou o layout Split Login fora da hierarquia raiz do App Router corretamente (ex. providers duplicados fora de `app/layout.tsx`); ou não conseguiu produzir nenhum artefato utilizável.\n\nDê uma nota de 0 a 1 e justifique em 2-4 frases quais dos critérios acima foram e não foram atendidos.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 5,
+            "costUsd": 0.42758860000000004,
+            "judgeCostUsd": 0.0035430000000000045,
+            "durationSeconds": 251,
+            "startedAt": "2026-09-12T16:20:36.705Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-sxUJzk/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O agente parou antes de criar a tela de login, e eu confirmei o motivo diretamente: o diretório de trabalho está essencialmente vazio (só existe o `app/layout.tsx` que o próprio agente criou) — não há `package.json`, `node_modules` nem os pacotes `@uigovpe/components`/`@uigovpe/styles` instalados, ao contrário do que a premissa do pedido original afirmava.\n\n**O que aconteceu:**\n- O especialista de autenticação (Split Login) recusou-se, corretamente, a escrever `app/login/page.tsx` inventando componentes (`Card`, `InputText`, `Button`, `TextLink`, etc.) sem poder confirmar seus nomes/props reais contra a documentação do Design System ou contra o pacote instalado. Isso está certo — inventar props geraria código quebrado.\n- Único arquivo criado: `app/layout.tsx`, com um wrapper `UiProvider` e import de CSS que são **inferências não confirmadas** (marcadas com `TODO_VALIDACAO` no arquivo).\n\n**Preciso de uma destas três coisas para desbloquear:**\n1. Confirmar se este é de fato o diretório certo do projeto (talvez o projeto Next.js com as dependências esteja em outro path que eu deveria usar); ou\n2. Rodar `npm install` (ou equivalente) aqui para materializar `node_modules` com `@uigovpe/components`/`@uigovpe/styles` de verdade; ou\n3. Você colar o conteúdo do pattern \"Split Login\" e das docs dos componentes envolvidos, para eu instruir o especialista com a especificação em mãos.\n\nComo quer prosseguir?"
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 5,
+            "costUsd": 0.39045209999999997,
+            "judgeCostUsd": 0.004092000000000012,
+            "durationSeconds": 263,
+            "startedAt": "2026-09-12T16:24:47.608Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-o1ajEh/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Encontrei um problema fundamental antes de prosseguir: o diretório do projeto (`/tmp/claude-eval-o1ajEh/home/cwd`) está praticamente vazio — não existe `package.json`, `node_modules`, nem nenhuma configuração de Next.js. O único arquivo presente é um `app/layout.tsx` que o próprio subagente criou nesta tarefa, tentando importar um `UiProvider` de `@uigovpe/components` sem conseguir confirmar se esse nome/API é real.\n\nOu seja, a premissa \"o projeto já usa `@uigovpe/components` e `@uigovpe/styles`, já instalados\" não corresponde ao que existe de fato neste ambiente. O especialista de autenticação do plugin se recusou a implementar a tela porque a regra central do pipeline é **nunca inventar componente ou prop do Design System** — e sem `node_modules`/documentação real, ele não tem como verificar nomes de componentes como `GovBar`, `Card`, `InputText`, `InputPassword`, `Button`, etc.\n\nIsso não é uma ambiguidade de design (que eu resolveria sozinho) — é uma divergência factual sobre o estado do ambiente, e prosseguir significaria inventar uma API inteira de um pacote que não posso inspecionar, gerando código que provavelmente não compila. Antes de continuar, preciso que você me diga como quer seguir:\n\n1. **Os pacotes existem em outro lugar** (ambiente diferente do sandbox atual) e você quer que eu apenas escreva o código assumindo a API padrão conhecida do Padrão Digital de PE (componentes tipo `GovBar`, `Card`, `TextField`/`InputText`, `Button` — vou fazer o melhor esforço, mas sem garantia de que bate 100% com a versão instalada); ou\n2. **Quer que eu inicialize o projeto do zero aqui** (rodar `next.js` scaffold, adicionar `@uigovpe/components`/`@uigovpe/styles` ao `package.json`, etc.) — isso é uma mudança maior de escopo que prefiro confirmar antes de fazer; ou\n3. **Quer que eu implemente a tela com HTML/CSS semântico simples** (sem depender do pacote específico), replicando visualmente o padrão \"Split Login\" do Governo de PE, para você adaptar depois quando os pacotes estiverem realmente disponíveis.\n\nQual dessas opções faz mais sentido para o seu caso?"
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 17,
+            "costUsd": 0.1558651,
+            "judgeCostUsd": 0.0024959999999999982,
+            "durationSeconds": 303,
+            "startedAt": "2026-09-12T16:29:10.268Z",
+            "error": "timed out after 300s",
+            "tracePath": "/tmp/claude-eval-3P8TIr/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "O agente encontrou um bloqueio: segundo ele, o diretório do projeto está vazio (sem `package.json`, sem `node_modules`) e a documentação de referência do próprio plugin também não está acessível, então ele se recusou a inventar a API do Design System. Vou verificar isso diretamente antes de decidir o próximo passo."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 17,
+            "costUsd": 0.22390730000000003,
+            "judgeCostUsd": 0.007226999999999997,
+            "durationSeconds": 140,
+            "startedAt": "2026-09-12T16:34:12.930Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-64Xv5a/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "A tela de login foi criada. Resumo e decisões tomadas:\n\n**O que encontrei:** o diretório de trabalho estava completamente vazio — sem `package.json`, `node_modules` ou estrutura Next.js, ao contrário do que a descrição indicava. Criei o scaffold mínimo do projeto além da tela pedida:\n\n- `package.json`, `tsconfig.json`, `next.config.mjs`, `next-env.d.ts` — Next.js 14 (App Router) com `@uigovpe/components` e `@uigovpe/styles` como dependências (versões `^1.0.0` como placeholder, já que não há como inspecionar as reais).\n- `app/layout.tsx` — layout raiz, importando o CSS global do Design System.\n- `app/page.tsx` — redireciona `/` para `/login`, já que é natural um portal interno abrir direto na tela de acesso.\n- `app/login/page.tsx` + `login.module.css` — a tela de login.\n\n**Decisões de conteúdo/estrutura:**\n- Layout em duas colunas: área institucional à esquerda (mais larga, com fundo de cor \"primária\" do DS) explicando o que é o Portal do Servidor (contracheque, férias, dados cadastrais, processos administrativos) e um rodapé citando a SEAD-PE como órgão de referência; formulário de login em card à direita. Em telas estreitas, empilha verticalmente.\n- Campo de e-mail (`type=\"email\"`, institucional), campo de senha, botão \"Entrar\" e link \"Esqueci minha senha\" apontando para `/esqueci-senha` (rota ainda não implementada, pois não foi pedida).\n- Usei os componentes `TextInput` e `Button` de `@uigovpe/components` para os campos e o botão, e `@uigovpe/styles` para o CSS global do DS.\n\n**Ponto de atenção importante:** como o pacote `@uigovpe/components` não está de fato presente neste ambiente (nem `node_modules`, nem `package.json` existiam), não tive como inspecionar a API real da biblioteca. Usei nomes plausíveis (`Button`, `TextInput`, props como `label`, `variant`, `fullWidth`) baseados em convenções comuns de design systems governamentais brasileiros — mas os nomes exatos de componentes/props podem não corresponder à biblioteca real. Antes de rodar, vale confirmar os imports/props contra a documentação do `@uigovpe/components` e ajustar o que for necessário."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 18,
+            "costUsd": 0.2840721,
+            "judgeCostUsd": 0.005216000000000012,
+            "durationSeconds": 173,
+            "startedAt": "2026-09-12T16:36:33.050Z",
+            "error": null,
+            "tracePath": "/tmp/claude-eval-X6EkjN/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Tela criada. Resumo do que foi feito e das decisões tomadas:\n\n**Estrutura criada** (`app/login/page.tsx` + `app/login/login-form.tsx`, com scaffold mínimo em `app/layout.tsx`, `app/page.tsx`, `app/globals.css`, `package.json`, `tsconfig.json`, `next.config.mjs`):\n\n- **Layout em duas colunas**: área institucional à esquerda (fundo azul, título \"Portal do Servidor\", texto explicativo + lista de serviços disponíveis) e card de login à direita.\n- **Formulário** (client component `login-form.tsx`): campos de e-mail e senha controlados, estado de envio/erro, botão \"Entrar\" e link \"Esqueci minha senha\" (apontando para `/esqueci-minha-senha`, rota ainda não criada).\n\n**Decisões que tomei sem perguntar, e por quê:**\n\n1. **O diretório estava completamente vazio** — não havia `package.json`, `node_modules`, nem nenhum arquivo do App Router, ao contrário do que o prompt descrevia. Como não podia pedir confirmação, criei o scaffold mínimo de um projeto Next.js (App Router) do zero para que a tela fizesse sentido e fosse executável assim que as dependências forem instaladas de verdade.\n\n2. **Não usei componentes importados de `@uigovpe/components`** — como o pacote não está de fato presente no ambiente, não tive como inspecionar sua API real (nomes de componentes/props). Para não arriscar quebrar o build com imports incorretos, montei o formulário com HTML semântico usando as classes CSS que o \"Padrão Digital de Governo\" (DSGov, base da maioria dos design systems estaduais, incluindo o de PE) documenta publicamente e mantém estáveis: `br-input`, `br-password`, `br-button`, `br-card`, `feedback`. O CSS global é importado de `@uigovpe/styles`.\n\n3. **O layout de duas colunas usa classes próprias** (`login-page__*`) em vez de tentar adivinhar um componente pronto de \"tela de login\" do design system, já que eu não tinha certeza suficiente sobre a existência/nome exato de tal componente.\n\n**Recomendo**: assim que o pacote real `@uigovpe/components` estiver acessível para inspeção, vale trocar os elementos HTML brutos (`input`, `button`, `div.br-card`) pelos componentes React equivalentes da biblioteca, caso existam, para ganhar acessibilidade/consistência garantidas pelo design system."
+              }
+            ]
+          },
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 3,
+            "costUsd": 0.0471012,
+            "judgeCostUsd": 0,
+            "durationSeconds": 30,
+            "startedAt": "2026-09-12T16:39:25.711Z",
+            "error": "interrupted",
+            "tracePath": "/tmp/claude-eval-MhHkxc/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "grader threw: Request was aborted.",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 0,
+        "passRate": 0,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 0
+      }
+    }
+  ],
+  "aggregates": {
+    "casesTotal": 4,
+    "casesPassed": 0,
+    "overallScore": 0,
+    "overallPassRate": 0,
+    "meanDelta": 0
+  }
+}

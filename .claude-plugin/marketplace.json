@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "padrao-digital-pe",
+  "description": "Marketplace pessoal do plugin padrao-digital-pe",
+  "owner": {
+    "name": "Marcio Wendell",
+    "email": "marcio.wendell.contact@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "padrao-digital-pe",
+      "description": "Pipeline de 7 subagentes que gera páginas e sistemas Next.js usando o Padrão Digital de Pernambuco (@uigovpe/components/@uigovpe/styles), escolhendo o pattern certo, validando que nenhum componente/prop foi inventado, e auditando acessibilidade e responsividade antes de finalizar",
+      "source": "./",
+      "author": {
+        "name": "Marcio Wendell",
+        "email": "marcio.wendell.contact@gmail.com"
+      }
+    }
+  ]
+}
