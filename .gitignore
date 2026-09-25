@@ -1,6 +1,7 @@
 tests/eval/.runs/
 
 node_modules/
+!tests/fixtures/mock-project/node_modules/
 npm-debug.log*
 
 .DS_Store
